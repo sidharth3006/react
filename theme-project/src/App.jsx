@@ -1,6 +1,7 @@
 import React , {useState, useEffect} from 'react'
 import axios from 'axios'
 import Card from './Card'
+import Navbar from './Navbar'
 
 const App = () => {
 
@@ -49,40 +50,39 @@ const App = () => {
 
 
   return (
-    <div className="h-screen" style={{ backgroundColor: theme === 'light' ? '#fff' : '#000', color: theme === 'light' ? '#000' : '#fff', padding: '20px' }}> 
-      <p>Current theme: {theme}</p>
-      <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-        Toggle Theme
-      </button>
-      {loading ? (
-        <div className="flex justify-center mt-6">
-          <p>Loading...</p>
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-4 mt-6 p-4 border h-[calc(100vh-200px)] overflow-y-auto">
-          {data.map((item) => (
-            <Card key={item.id} item={item} theme={theme} />
-          ))}
-        </div>
-      )}
+    <div className="h-screen" style={{ backgroundColor: theme === 'light' ? '#fff' : '#000', color: theme === 'light' ? '#000' : '#fff' }}>
+      <Navbar theme={theme} setTheme={setTheme} />
+      <div style={{ padding: '20px' }}>
+        {loading ? (
+          <div className="flex justify-center mt-6">
+            <p>Loading...</p>
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-4 mt-6 p-4 border h-[calc(100vh-200px)] overflow-y-auto">
+            {data.map((item) => (
+              <Card key={item.id} item={item} theme={theme} />
+            ))}
+          </div>
+        )}
 
-      {/* Pagination */}
-      <div className="flex justify-center gap-2 mt-4">
-        <button 
-          onClick={() => paginate(currentPage - 1)}
-          disabled={currentPage === 1}
-          className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
-        >
-          Previous
-        </button>
-        <span className="px-3 py-1">Page {currentPage}</span>
-        <button 
-          onClick={() => paginate(currentPage + 1)}
-          disabled={data.length < itemsPerPage}
-          className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
-        >
-          Next
-        </button>
+        {/* Pagination */}
+        <div className="flex justify-center gap-2 mt-4">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          >
+            Previous
+          </button>
+          <span className="px-3 py-1">Page {currentPage}</span>
+          <button 
+            onClick={() => paginate(currentPage + 1)}
+            disabled={data.length < itemsPerPage}
+            className="px-3 py-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          >
+            Next
+          </button>
+        </div>
       </div>
       {/*<button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={getData}>Get Data</button>*/}
     </div>
