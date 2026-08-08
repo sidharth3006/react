@@ -44,11 +44,7 @@ const App = () => {
   useEffect(() => {
     getData(1);
   }, []);
-
-
-
-
-
+  
   return (
     <div className="h-screen" style={{ backgroundColor: theme === 'light' ? '#fff' : '#000', color: theme === 'light' ? '#000' : '#fff' }}>
       <Navbar theme={theme} setTheme={setTheme} />
